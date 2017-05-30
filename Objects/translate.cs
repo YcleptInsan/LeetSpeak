@@ -1,13 +1,15 @@
 using System.Collections.Generic;
-
+using System;
 namespace LeetSpeak
 {
   public class Translate
   {
     private string _userInput;
-    public translate(string userInput)
+
+    public Translate(string userInput)
     {
       _userInput = userInput;
+
     }
 
     public string GetuserInput()
@@ -15,51 +17,60 @@ namespace LeetSpeak
       return _userInput;
     }
 
-    public void translator(userInput)
+    public string translator(string sentence)
     {
-      char[] letters = userInput.ToCharArray();
-      string[] result = new string [];
-      for(i = 0 ; i < letters.Length; i++){
-        if(letters[i-1] == " ")
-        {
-          if(letters[i] == "s")
-          {
-            result.Add("s")
-          }
-          else if(letters[i] == "S")
-          {
-            result.Add("S")
-          }
-        }
-        else if(letters[i] == "s")
-        {
-          result.Add("z");
-        }
-        else if(letters[i] == "S")
-        {
-          result.Add("Z");
-        }
-        else if (letters[i] == "e" || letters[i] == "E")
-        {
-          result.Add("3");
-        }
-        else if(letters[i] == "o" || letters[i] =="O")
-        {
-          result.Add("0");
-        }
-        else if(letters[i] == "I")
-        {
-          result.Add("1");
-        }
-        else if(letters[i] == "t" || letters[i] == "T")
-        {
-          result.Add("7");
-        }
-        else{
-          result.add(letters[i]);
-        }
+      List<char> CharList = new List<char>();
+      char[] letters = sentence.ToCharArray();
+      foreach(char letter in letters){
+        CharList.Add(letter);
       }
-      string output_sentence = string.Join("", result);
+      Console.WriteLine("3.5 " + CharList[0]);
+      char[] string_letters = CharList.ToArray();
+      Console.WriteLine("4 " + string_letters[1]);
+      //new list to store the converted letters
+      List<char> LetterList = new List<char>();
+      Console.WriteLine("5 " + string_letters.Length);
+      for(int i = 0 ; i < string_letters.Length; i++)
+      {
+
+         if (string_letters[i] == 'e' || string_letters[i] == 'E')
+          {
+            LetterList.Add('3');
+            Console.WriteLine(LetterList[0]);
+          }
+          else if(string_letters[i] == 'o' || string_letters[i] =='O')
+          {
+            LetterList.Add('0');
+          }
+          else if(string_letters[i] == 'I')
+          {
+            LetterList.Add('1');
+          }
+          else if(string_letters[i] == 't' || string_letters[i] == 'T')
+          {
+            LetterList.Add('7');
+          }
+          else if((string_letters[i] == 'S' || string_letters[i] == 's') && i != 0 && (Char.IsLetter(string_letters[i-1]) || Char.IsDigit(string_letters[i-1])))
+          {
+            if(string_letters[i] == 's')
+            {
+              LetterList.Add('z');
+              Console.WriteLine(LetterList[0]);
+            }
+            else if(string_letters[i] == 'S')
+            {
+              LetterList.Add('Z');
+            }
+          }
+          else
+          {
+            LetterList.Add(string_letters[i]);
+          }
+        }
+
+      char[] LetterArray = LetterList.ToArray();
+      string output_sentence = string.Join("", LetterArray);
+      Console.WriteLine("6,output " + output_sentence);
       return output_sentence;
     }
 
